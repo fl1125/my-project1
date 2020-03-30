@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.BbstypeDAO">
+    <resultMap type="com.bean.Bbstype" id="BaseResultMap">
+      <id column="id" property="id" jdbcType="INTEGER"/>
+      <result column="typename" property="typename" jdbcType="VARCHAR"/>
+      <result column="fatherid" property="fatherid" jdbcType="VARCHAR"/>
+      <result column="delstatus" property="delstatus" jdbcType="VARCHAR"/>
+    </resultMap>
+    
+    <select id="selectAll" resultMap="BaseResultMap">
+      select * from bbstype where delstatus=0 and fatherid=0
+    </select>
+    
+    <select id="selectChildtype" parameterType="Int" resultMap="BaseResultMap">
+      select * from bbstype where delstatus=0 and fatherid=#{fatherid}
+    </select>
+    
+    <insert id="add" parameterType="Bbstype">
+      insert into bbstype values(null,#{typename},#{fatherid},#{delstatus})
+    </insert>
+    
+    <select id="findById" parameterType="Int" resultType="Bbstype">
+      select * from bbstype where id=#{id}
+    </select>
+    
+    <update id="update" parameterType="Bbstype">
+      update bbstype set typename=#{typename} where id=#{id}
+    </update>
+    
+    <update id="delete" parameterType="Int">
+      update bbstype set delstatus=1 where id=#{id}
+    </update>
+    
+    <select id="searchTypename" parameterType="String" resultMap="BaseResultMap">
+      select * from bbstype where delstatus=0 and typename like "%"#{typename}"%"
+    </select>
+    
+    <select id="selectFathertype"  resultMap="BaseResultMap">
+      select * from bbstype where delstatus=0 and fatherid=0
+    </select>
+    
+    
+
+</mapper>
+

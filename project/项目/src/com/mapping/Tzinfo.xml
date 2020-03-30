@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.TzinfoDAO">
+    <resultMap type="com.bean.Tzinfo" id="BaseResultMap">
+      <id column="id" property="id" jdbcType="INTEGER"/>
+      <result column="fid" property="fid" jdbcType="INTEGER"/>
+      <result column="sid" property="sid" jdbcType="INTEGER"/>
+      <result column="title" property="title" jdbcType="VARCHAR"/>
+      <result column="note" property="note" jdbcType="VARCHAR"/>
+      <result column="author" property="author" jdbcType="INTEGER"/>
+      <result column="savetime" property="savetime" jdbcType="VARCHAR"/>
+      <result column="dznum" property="dznum" jdbcType="INTEGER"/>
+      <result column="looknum" property="looknum" jdbcType="INTEGER"/>
+      <result column="isjh" property="isjh" jdbcType="VARCHAR"/>
+      <result column="istop" property="istop" jdbcType="VARCHAR"/>
+      <result column="canht" property="canht" jdbcType="VARCHAR"/>
+      <result column="filename" property="filename" jdbcType="VARCHAR"/>
+    </resultMap>
+    
+    <select id="selectAll" resultMap="BaseResultMap">
+      select * from tzinfo where 1=1 order by id desc
+    </select>
+    
+    <insert id="add" parameterType="Tzinfo">
+      insert into tzinfo values(null,#{fid},#{sid},#{title},#{note},#{author},#{savetime},#{dznum},#{looknum},#{isjh},#{istop},#{updatetime},#{canht},#{filename})
+    </insert>
+    
+    <select id="myTzinfo" parameterType="Int" resultMap="BaseResultMap">
+      select * from tzinfo where author=#{author} order by savetime desc
+    </select>
+    
+    <select id="selectNowtzinfo" parameterType="String" resultMap="BaseResultMap">
+      select * from tzinfo where DATE_FORMAT(savetime,'%Y-%m-%d')=#{savetime} order by id desc
+    </select>
+    
+    <select id="selectTypetzinfo" parameterType="Int" resultMap="BaseResultMap">
+      select * from tzinfo  where fid =#{0}
+    </select>
+    
+    <select id="findById" parameterType="Int" resultType="Tzinfo">
+      select * from tzinfo where id=#{id}
+    </select>
+    
+    <update id="updateLooknum" parameterType="Int">
+      update tzinfo set looknum=looknum+1 where id=#{id}
+    </update>
+    
+    <select id="selectPtzinfo" parameterType="Map"  resultMap="BaseResultMap">
+      select * from tzinfo  where fid =#{fid}  and istop='no'
+      
+      <if test="sid!=null">
+            and sid=#{sid}
+      </if>
+      
+      <if test="parlist!=null and parlist.size>0">
+           and author !=
+           <foreach collection="parlist" index="index" item="item"  separator="," >  
+            #{item}  
+           </foreach>
+      </if>
+      
+      
+    </select>
+    
+    <select id="selectTopzinfo"  resultMap="BaseResultMap">
+      select * from tzinfo  where fid =#{0} and istop='yes' order by updatetime desc
+    </select>
+    
+    <update id="updateIstop" parameterType="Int">
+      update tzinfo set istop='yes',updatetime = now() where id=#{id}
+    </update>
+    
+    <update id="updateNotop" parameterType="Int">
+      update tzinfo set istop='no',updatetime='' where id=#{id}
+    </update>
+    
+    <update id="updateIsjh" parameterType="Int">
+      update tzinfo set isjh='yes' where id=#{id}
+    </update>
+    
+    <update id="updateNojh" parameterType="Int">
+      update tzinfo set isjh='no' where id=#{id}
+    </update>
+    
+    <update id="updata" parameterType="Tzinfo">
+      update tzinfo set title=#{title},note=#{note},filename=#{filename},filename=#{filename},canht=#{canht} where id=#{id}
+    </update>
+    
+    <delete id="delete" parameterType="Int">
+      delete from tzinfo where id=#{id}
+    </delete>
+    
+    <select id="searchTzinfo" parameterType="HashMap" resultMap="BaseResultMap">
+    select * from tzinfo  where 1=1
+      <if test="title!=''"> and title like "%"#{title}"%"</if>
+      <if test="fid!=''"> and fid=#{fid}</if>
+      <if test="sid!=''"> and sid=#{sid}</if>
+    </select>
+    
+    <update id="updateType" parameterType="Tzinfo">
+      update tzinfo set fid=#{fid},sid=#{sid} where id=#{id}
+    </update>
+    
+    <select id="searchQ" parameterType="String" resultMap="BaseResultMap">
+      select * from tzinfo where 1=1 and  (title like "%"#{title}"%" or note like "%"#{note}"%") order by savetime
+    </select>
+    
+    <update id="updateCanht" parameterType="Tzinfo">
+      update tzinfo set canht=#{canht} where id=#{id}
+    </update>
+    
+    
+    
+</mapper>
+

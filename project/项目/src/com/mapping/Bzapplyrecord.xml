@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.BzapplyrecordDAO">
+    <resultMap type="com.bean.Bzapplyrecord" id="BaseResultMap">
+      <id column="id" property="id" jdbcType="INTEGER"/>
+      <result column="fid" property="fid" jdbcType="INTEGER"/>
+      <result column="note" property="note" jdbcType="VARCHAR"/>
+      <result column="memberid" property="memberid" jdbcType="INTEGER"/>
+      <result column="shstatus" property="shstatus" jdbcType="VARCHAR"/>
+      <result column="savetime" property="savetime" jdbcType="VARCHAR"/>
+    </resultMap>
+    
+    <select id="selectMybzapply" parameterType="Int" resultMap="BaseResultMap">
+      select * from bzapplyrecord where 1=1 and memberid=#{memberid}
+    </select>
+    
+    <select id="selectIssqlist" parameterType="Bzapplyrecord" resultMap="BaseResultMap">
+      select * from Bzapplyrecord where memberid=#{memberid} and fid=#{fid} and shstatus='待审核'
+    </select>
+    
+    <select id="selectIsbzlist" parameterType="Bzapplyrecord" resultMap="BaseResultMap">
+      select * from Bzapplyrecord where memberid=#{memberid} and fid=#{fid} and shstatus='通过'
+    </select>
+    
+    <insert id="add" parameterType="Bzapplyrecord">
+      insert into bzapplyrecord values(null,#{fid},#{note},#{memberid},#{shstatus},#{savetime})
+    </insert>
+    
+    <select id="selectAll" resultMap="BaseResultMap">
+      select * from bzapplyrecord where 1=1 order by id desc
+    </select>
+    
+    <update id="updateJjshstatus" parameterType="Int">
+      update bzapplyrecord set shstatus='拒绝' where id = #{id}
+    </update>
+    
+    <update id="updateTgshstatus" parameterType="Int">
+      update bzapplyrecord set shstatus='通过' where id = #{id}
+    </update>
+    
+    <delete id="delete" parameterType="Int">
+      delete from bzapplyrecord where id=#{id}
+    </delete>
+
+</mapper>
+

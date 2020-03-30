@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- 加载类路径下db.properties -->
+	<properties resource="db.properties"></properties>
+	<typeAliases>
+		<package name="com.bean" />
+	</typeAliases>
+	
+	<plugins>
+    <plugin interceptor="com.github.pagehelper.PageInterceptor">
+    </plugin>
+    </plugins>
+
+	<mappers>
+		<mapper resource="com/mapping/User.xml" />
+		<mapper resource="com/mapping/Bbstype.xml" />
+		<mapper resource="com/mapping/Tzinfo.xml" />
+		<mapper resource="com/mapping/Member.xml" />
+		<mapper resource="com/mapping/News.xml" />
+		<mapper resource="com/mapping/Yqlink.xml" />
+		<mapper resource="com/mapping/Tzhtinfo.xml" />
+		<mapper resource="com/mapping/Bzapplyrecord.xml" />
+		<mapper resource="com/mapping/Banzhu.xml" />
+		<mapper resource="com/mapping/Fans.xml" />
+		<mapper resource="com/mapping/Pbinfo.xml" />
+		<mapper resource="com/mapping/Jbrecord.xml" />
+		<mapper resource="com/mapping/Sxinfo.xml" />
+		<mapper resource="com/mapping/Chat.xml" />
+		<mapper resource="com/mapping/Mgword.xml" />
+		<mapper resource="com/mapping/Signin.xml" />
+		<mapper resource="com/mapping/Infos.xml" />
+		<mapper resource="com/mapping/Infospj.xml" />
+	</mappers>
+	
+</configuration>

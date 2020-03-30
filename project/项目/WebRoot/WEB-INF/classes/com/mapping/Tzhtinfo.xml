@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.TzhtinfoDAO">
+    <resultMap type="com.bean.Tzhtinfo" id="BaseResultMap">
+      <id column="id" property="id" jdbcType="INTEGER"/>
+      <result column="tzid" property="tzid" jdbcType="INTEGER"/>
+      <result column="note" property="note" jdbcType="VARCHAR"/>
+      <result column="author" property="author" jdbcType="INTEGER"/>
+      <result column="savetime" property="savetime" jdbcType="VARCHAR"/>
+      <result column="dznum" property="dznum" jdbcType="INTEGER"/>
+      <result column="canht" property="canht" jdbcType="VARCHAR"/>
+    </resultMap>
+    
+    <insert id="add" parameterType="Tzhtinfo">
+      insert into tzhtinfo values(null,#{tzid},#{note},#{author},#{savetime},#{dznum},#{canht})
+    </insert>
+    
+    <select id="selectHtinfo" parameterType="Int" resultMap="BaseResultMap">
+      select * from tzhtinfo where tzid=#{tzid}
+    </select>
+    
+    <select id="findById" parameterType="Int" resultType="Tzhtinfo">
+      select * from tzhtinfo where id=#{id}
+    </select>
+    
+    <update id="updateDz" parameterType="Tzhtinfo">
+      update tzhtinfo set dznum=#{dznum} where id=#{id}
+    </update>
+    
+    <delete id="delHt" parameterType="Int">
+      delete from tzhtinfo where id=#{id}
+    </delete>
+    
+    <select id="selectMyAllhf" parameterType="Int" resultMap="BaseResultMap">
+      select * from tzhtinfo where author=#{author}
+    </select>
+    
+    <select id="selectNorepetition" parameterType="Int" resultMap="BaseResultMap">
+      select DISTINCT(tzid) from tzhtinfo where author=#{author}
+    </select>
+    
+</mapper>
+

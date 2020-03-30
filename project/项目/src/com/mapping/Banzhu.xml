@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.BanzhuDAO">
+    <resultMap type="com.bean.Banzhu" id="BaseResultMap">
+      <id column="id" property="id" jdbcType="INTEGER"/>
+      <result column="memberid" property="memberid" jdbcType="INTEGER"/>
+      <result column="fid" property="fid" jdbcType="INTEGER"/>
+    </resultMap>
+    
+    <select id="selectOne" parameterType="Int" resultMap="BaseResultMap">
+      select * from banzhu where fid=#{fid}
+    </select>
+    
+    <insert id="add" parameterType="Banzhu">
+      insert into banzhu values(null,#{memberid},#{fid})
+    </insert>
+    
+    <select id="selectIsbz" parameterType="Banzhu" resultMap="BaseResultMap">
+      select * from banzhu where memberid=#{memberid} and fid=#{fid}
+    </select>
+    
+    <delete id="delete" parameterType="Banzhu">
+      delete from banzhu where memberid=#{memberid} and fid=#{fid}
+    </delete>
+</mapper>
+

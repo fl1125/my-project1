@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.InfospjDAO">
+    <resultMap type="com.bean.Infospj" id="BaseResultMap">
+      <id column="id" property="id" jdbcType="INTEGER"/>
+      <result column="infoid" property="infoid" jdbcType="INTEGER"/>
+      <result column="note" property="note" jdbcType="VARCHAR"/>
+      <result column="mid" property="mid" jdbcType="INTEGER"/>
+      <result column="savetime" property="savetime" jdbcType="VARCHAR"/>
+    </resultMap>
+    
+    <insert id="add" parameterType="Infospj">
+      insert into infospj values(null,#{infoid},#{mid},#{note},#{savetime})
+    </insert>
+    
+    <select id="selectInfospj" parameterType="Int" resultMap="BaseResultMap">
+      select * from infospj where infoid=#{infoid}
+    </select>
+    
+    <select id="findById" parameterType="Int" resultType="Infospj">
+      select * from infospj where id=#{id}
+    </select>
+    
+    
+    <delete id="delInfospj" parameterType="Int">
+      delete from infospj where id=#{id}
+    </delete>
+    
+   
+</mapper>
+

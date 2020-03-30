@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.YqlinkDAO">
+    <resultMap type="com.bean.Yqlink" id="BaseResultMap">
+      <id column="id" property="id" jdbcType="INTEGER"/>
+      <result column="linkname" property="linkname" jdbcType="VARCHAR"/>
+      <result column="linkurl" property="linkurl" jdbcType="VARCHAR"/>
+    </resultMap>
+    
+    <select id="selectAll" resultMap="BaseResultMap">
+      select * from yqlink where 1=1 order by id desc
+    </select>
+    
+    <select id="searchYqlink" parameterType="String" resultMap="BaseResultMap">
+      select * from yqlink where 1=1 and linkname like "%"#{linkname}"%" order by id desc
+    </select>
+    
+    
+    
+    <insert id="add" parameterType="Yqlink">
+      insert into yqlink values(null,#{linkname},#{linkurl})
+    </insert>
+    
+    <select id="findById" parameterType="Int" resultType="Yqlink">
+      select * from yqlink where id=#{id}
+    </select>
+    
+    <update id="update" parameterType="Yqlink">
+      update yqlink set linkname=#{linkname},linkurl=#{linkurl} where id=#{id}
+    </update>
+    
+    
+    <delete id="delete" parameterType="Int">
+      delete from yqlink where id=#{id}
+    </delete>
+    
+    
+    
+    
+
+</mapper>
+

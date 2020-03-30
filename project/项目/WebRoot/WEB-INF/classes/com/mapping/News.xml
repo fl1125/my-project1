@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.NewsDAO">
+    <resultMap type="com.bean.News" id="BaseResultMap">
+      <id column="id" property="id" jdbcType="INTEGER"/>
+      <result column="title" property="title" jdbcType="VARCHAR"/>
+      <result column="filename" property="filename" jdbcType="VARCHAR"/>
+      <result column="content" property="content" jdbcType="VARCHAR"/>
+      <result column="savetime" property="savetime" jdbcType="VARCHAR"/>
+    </resultMap>
+    
+    <select id="selectAll" resultMap="BaseResultMap">
+      select * from news where 1=1 order by id desc
+    </select>
+    
+    <insert id="add" parameterType="News">
+      insert into news values(null,#{title},#{content},#{filename},#{savetime})
+    </insert>
+    
+    <delete id="delete" parameterType="Int">
+      delete from news where id=#{id}
+    </delete>
+    
+    <select id="findById" parameterType="Int" resultType="News">
+      select * from news where id=#{id}
+    </select>
+    
+    <update id="update" parameterType="News">
+      update news set title=#{title},content=#{content},filename=#{filename} where id=#{id}
+    </update>
+    
+    <select id="searchNews" parameterType="String" resultMap="BaseResultMap">
+      select * from news where 1=1 and title like "%"#{title}"%" order by id desc
+    </select>
+    
+    
+
+</mapper>
+

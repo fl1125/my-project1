@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.JbrecordDAO">
+    <resultMap type="com.bean.Jbrecord" id="BaseResultMap">
+      <id column="id" property="id" jdbcType="INTEGER"/>
+      <result column="memberid" property="memberid" jdbcType="INTEGER"/>
+      <result column="jbmemberid" property="jbmemberid" jdbcType="INTEGER"/>
+    </resultMap>
+    
+    <select id="selectOne" parameterType="HashMap" resultMap="BaseResultMap">
+      select * from jbrecord where memberid=#{memberid} and jbmemberid=#{jbmemberid}
+    </select>
+    
+    <insert id="add" parameterType="Jbrecord">
+      insert into jbrecord values(null,#{memberid},#{jbmemberid},#{note})
+    </insert>
+    
+    <select id="selectAll" resultMap="BaseResultMap">
+      select * from jbrecord where 1=1 order by id desc
+    </select>
+    
+    <delete id="delete" parameterType="Int">
+      delete from jbrecord where id=#{id}
+    </delete>
+    
+    <select id="searchContent" resultMap="BaseResultMap">
+      select * from jbrecord where note like "%"#{note}"%"
+    </select>
+</mapper>
+

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.InfosDAO">
+    <resultMap type="com.bean.Infos" id="BaseResultMap">
+      <id column="id" property="id" jdbcType="INTEGER"/>
+      <result column="title" property="title" jdbcType="VARCHAR"/>
+      <result column="note" property="note" jdbcType="VARCHAR"/>
+      <result column="savetime" property="savetime" jdbcType="VARCHAR"/>
+      <result column="type" property="type" jdbcType="VARCHAR"/>
+    </resultMap>
+    
+    <select id="selectAll" resultMap="BaseResultMap">
+      select * from infos where type=#{type} order by id desc
+    </select>
+ 
+    
+    <insert id="add" parameterType="Infos">
+      insert into infos values(null,#{title},#{note},#{savetime},#{type})
+    </insert>
+    
+    <select id="findById" parameterType="Int" resultType="Infos">
+      select * from infos where id=#{id} 
+    </select>
+    
+    <update id="update" parameterType="Infos">
+      update infos set title=#{title},note=#{note} where id=#{id}
+    </update>
+    
+    <delete id="delete" parameterType="Int">
+      delete from infos where id=#{id}
+    </delete>
+    <select id="searchByTitle" parameterType="String" resultMap="BaseResultMap">
+      select * from infos where title like "%"#{key}"%" and type=#{type} order by id desc
+    </select>
+    
+ 
+    
+
+</mapper>
+
