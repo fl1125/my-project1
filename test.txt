@@ -1,1 +1,19 @@
 使用git bash pull 项目，并合并到本地仓库。
+用到的命令：
+1、配置git
+$ ssh-keygen-t rsa-C "1245791351@qq.com"
+$ ssh -T git@github.com
+$ git config --global user.name "fl1125"
+$ git config --global user.email "1245791351@qq.com"
+然后使用cd ，命令定位至文件夹my-project1
+$git add .
+$git commit -m "*****"
+git push origin master
+
+2、使用git bash pull 项目，并合并到本地仓库。
+$ git branch -a  //查看分支
+$ git checout master 
+$ git pull origin master
+$ git merge qchencs-patch-1主
+$ git status
+$ git push origin master
