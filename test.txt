@@ -5,6 +5,7 @@ $ ssh-keygen-t rsa-C "1245791351@qq.com"
 $ ssh -T git@github.com
 $ git config --global user.name "fl1125"
 $ git config --global user.email "1245791351@qq.com"
+$ git clone https://(创建库所对应的地址)
 然后使用cd ，命令定位至文件夹my-project1
 $git add .
 $git commit -m "*****"
